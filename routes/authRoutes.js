@@ -1,6 +1,6 @@
 const express = require("express");
-const { registerUser, userLogin } = require("../service/authService");
 const app = express.Router();
+const { registerUser, userLogin } = require("../service/authService");
 
 app.post("/register", registerUser);
 app.post("/login", userLogin);
