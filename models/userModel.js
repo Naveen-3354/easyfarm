@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken")
-require("dotenv").config();
 
 const userSchema = new mongoose.Schema(
   {
@@ -82,8 +81,12 @@ userSchema.methods.createUserId = function (count) {
   return "efus" + minutes*100 + (count+1);
 };  
 
-userSchema.methods.generateToken = function (result) {
-    let token = jwt.sign(result, process.env.SECRET_KEY);
+userSchema.methods.generateToken = function () {
+  const token = jwt.sign(
+    { userId: this.userId, role: this.role, userName : this.userName},
+    process.env.JWT_SECRET_KEY,
+    { algorithm: "HS256", expiresIn: process.env.JWT_EXP_TIME }
+  );
     return token;
 }
 

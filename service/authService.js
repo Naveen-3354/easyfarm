@@ -2,8 +2,9 @@ const UserModel = require("../models/userModel");
 const { userValidation } = require("../components/validation");
 const _ = require("lodash");
 const bcrypt = require("bcrypt");
-const { required } = require("joi");
 
+
+/* Registeration */
 module.exports.registerUser = async (request, response) => {
   if (_.isEmpty(request.body))
     return response.status(400).send({
@@ -37,7 +38,7 @@ module.exports.registerUser = async (request, response) => {
 
   /* 
     
-    Default schema Validation created in the model file.
+   -- Default schema Validation created in the model file.
 
   const schemaValidtion = result.validateSync();
   if (schemaValidtion) {
@@ -60,6 +61,8 @@ module.exports.registerUser = async (request, response) => {
   });
 };
 
+
+/* Login using email or number combined with password. */
 module.exports.userLogin = async (request, response) => {
   if (_.isEmpty(request.body))
     return response.status(400).send({
@@ -104,10 +107,10 @@ module.exports.userLogin = async (request, response) => {
     number: user.number,
   };
 
-  const jwt_token = user.generateToken(result);
+  const jwt_token = user.generateToken();
 
   response.cookie('jwt_token', jwt_token, {
-    path:"/auth/login",
+    path:"/",
     maxAge: 900000, // 15 minutes
     httpOnly: true, // Helps mitigate XSS attacks
     secure: true, // Ensures the cookie is only sent over HTTPS
@@ -118,7 +121,6 @@ module.exports.userLogin = async (request, response) => {
   response.send({
     request:"successfull",
     response: result,
-    message: "User found",
-    token: jwt_token
+    message: "User found"
   });
 };
