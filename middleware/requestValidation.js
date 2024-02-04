@@ -25,9 +25,10 @@ module.exports = function (request, response, callback) {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
     request.userId = decoded.userId;
+    request.role = decoded.role;
   } catch (error) {
     return response.status(403).send({
-      request: "failed",
+      request: "failed 1",
       message: "User not found.",
       error: "Access denied.",
       redirect: "/auth/login",

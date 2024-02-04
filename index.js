@@ -9,7 +9,7 @@ require("./database/mongoose")
 const authentication = require("./routes/authRoutes")
 const products = require("./routes/porductsRoutes")
 
-const requestValidation = require("./middleware/cookiesValidation")
+const requestValidation = require("./middleware/requestValidation")
 
 /* Creating variables */
 const port  = process.env.PORT_ONE || process.env.PORT_TWO;

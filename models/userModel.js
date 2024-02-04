@@ -83,7 +83,7 @@ userSchema.methods.createUserId = function (count) {
 
 userSchema.methods.generateToken = function () {
   const token = jwt.sign(
-    { userId: this.userId, role: this.role, userName : this.userName},
+    { userId: this.userId, userName : this.userName, role: this.role},
     process.env.JWT_SECRET_KEY,
     { algorithm: "HS256", expiresIn: process.env.JWT_EXP_TIME }
   );

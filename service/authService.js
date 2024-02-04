@@ -82,7 +82,7 @@ module.exports.userLogin = async (request, response) => {
 
   const user = await UserModel.findOne({
     $or: [{ email }, { number }],
-  }).select({ userName: 1, email: 1, number: 1, password: 1 , userId:1, _id:0});
+  }).select({ userName: 1, email: 1, number: 1, password: 1 , userId:1, _id:0, role:1});
   if (!user)
     return response.status(500).send({
       request: "failed",
@@ -101,7 +101,6 @@ module.exports.userLogin = async (request, response) => {
     });
 
   const result = {
-    userId:user.userId,
     userName: user.userName,
     email: user.email,
     number: user.number,
