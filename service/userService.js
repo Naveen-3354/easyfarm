@@ -61,12 +61,6 @@ module.exports.getByFields = async (request, response) => {
 };
 
 module.exports.getById = async (request, response) => {
-  if (_.isEmpty(request.body))
-    return response.status(400).send({
-      request: "failed",
-      message: "request is missing an important feilds.",
-    });
-
   const userId = request.userId;
 
   const result = await UserModel.findOne({ userId }).select({
@@ -105,12 +99,25 @@ module.exports.updateUser = async (request, response) => {
     number: 1,
   });
 
-  result.userName = userName
-  result.email = email
-  result.number = number
-  await result.save()
+  result.userName = userName;
+  result.email = email;
+  result.number = number;
+  await result.save();
 
   response.status(200).send({
-    message:"User details update successfully."
+    message: "User details update successfully.",
+  });
+};
+
+module.exports.deleteUser = async (request, response) => {
+  const userId = request.userId;
+
+  const result = await UserModel.findOne({userId})
+
+  result.status = "Inactive";
+
+  response.status(200).send({
+    request:"successfull",
+    message:"User has been deleted."
   })
 };
