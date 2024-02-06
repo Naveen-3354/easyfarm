@@ -22,7 +22,7 @@ const ordersSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  orderAddress: {
+  customerAddress: {
     type: String,
     required: true,
   },
@@ -64,13 +64,28 @@ const ordersSchema = new mongoose.Schema({
   }
 });
 
-ordersSchema.methods.createOrderId = function (data) {
-  const { count } = data;
+ordersSchema.methods.createOrderId = function (count) {
   const currentDate = new Date();
   const millSec = currentDate.getMilliseconds();
   const minutes = currentDate.getMinutes();
   const time = millSec + minutes;
   return "efor"+this._id+count;
+};
+
+ordersSchema.methods.createTrackingId = function (count) {
+  const currentDate = new Date();
+  const millSec = currentDate.getMilliseconds();
+  const minutes = currentDate.getMinutes();
+  const time = millSec + minutes;
+  return "eftr"+this._id+count;
+};
+
+ordersSchema.methods.createTransactionId = function (count) {
+  const currentDate = new Date();
+  const millSec = currentDate.getMilliseconds();
+  const minutes = currentDate.getMinutes();
+  const time = millSec + minutes;
+  return "efts"+this._id+count;
 };
 
 const OrderModel = mongoose.model("orders", ordersSchema)

@@ -35,7 +35,7 @@ exports.getOrdersByCustomerId = async (request, response) => {
   });
 };
 
-exports.getOrdersByPrductId = async (request, response) => {
+exports.getOrdersByProductId = async (request, response) => {
   const productId = request.params.id;
   const result = await OrderModel.find({ productId }).select({
     orderId: 1,
@@ -111,3 +111,47 @@ exports.getOrdersByYear = async (request, response) => {
   });
 };
 
+exports.createOrder = async (request, response) => {
+  if (_.isEmpty(reqest.body))
+    return response.status(400).send({
+      request: "failed",
+      message: "request is missing an important feilds.",
+    });
+  const customerId = request.userId;
+  const {
+    ProductQuantity,
+    totalAmount,
+    productId,
+    customerNumber,
+    customerAddress,
+    customerCountry,
+    customerState,
+    customerPincode,
+    customerCity,
+    orderYear,
+  } = request.body;
+
+  const result = OrderModel({
+    ProductQuantity,
+    totalAmount,
+    productId,
+    customerNumber,
+    customerAddress,
+    customerCountry,
+    customerState,
+    customerPincode,
+    customerCity,
+    orderYear,
+  });
+  const count = await OrderModel.find().count();
+  result.oredrId = result.createOrderId(count);
+  result.trackingId = result.createTrackingId(count);
+  result.transactionId = result.createTransactionId(count);
+
+  await result.save();
+  response.status(200).send({
+    request: "Successfull",
+    result,
+    message: "Orders fetched successfuly.",
+  });
+};

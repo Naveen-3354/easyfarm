@@ -58,9 +58,10 @@ module.exports.roleSeller = function (request, response, callback) {
 
 module.exports.roleMember = function (request, response, callback) {
   if (
-    request.role === process.env.ROLE_FIVE ||
+    request.role === process.env.ROLE_FOUR ||
     request.role === process.env.ROLE_TWO ||
-    request.role === process.env.ROLE_THREE
+    request.role === process.env.ROLE_THREE ||
+    request.role === process.env.ROLE_ONE
   )
     callback();
   else
