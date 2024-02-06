@@ -53,7 +53,7 @@ const userSchema = new mongoose.Schema(
     status: {
       type: String,
       enum: {
-        values: ["Active", "Inactive"],
+        values: ["Active", "  "],
         message: "{VALUE} is not valid.",
       },
       default: "Active",
