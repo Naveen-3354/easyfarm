@@ -1,11 +1,11 @@
 const express = require("express");
 const app  = express.Router()
 
-const {userRole} = require("../middleware/roleAuthorization")
-const {user, admin, developer} = require("../service/productService")
+const {user, admin,developer}=require("../service/productService")
+const { roleDev, roleUser,roleAdmin } = require("../middleware/roleAuthorization");
 
-app.get('/user',[userRole],user)
-app.get('/admin',admin)
-app.get('/dev',developer)
+app.get('/user',[roleUser],user)
+app.get('/admin',roleAdmin,admin)
+app.get('/dev',[roleDev],developer)
 
 module.exports = app

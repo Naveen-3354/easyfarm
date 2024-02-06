@@ -8,12 +8,12 @@ const {
   updateUser,
   deleteUser,
 } = require("../service/userService");
-const { user, admin, developer } = require("../service/productService");
+const { roleDev, roleUser } = require("../middleware/roleAuthorization");
 
-app.get("/", [admin, developer], getAllUser);
-app.get("/getByFields", [admin, developer], getByFields);
-app.get("/getByfield", [admin, developer, user], getById);
-app.put("/", [admin, developer, user], updateUser);
-app.delete("/", [admin, developer, user], deleteUser);
+app.get("/", [roleDev], getAllUser);
+app.get("/getByFields", [roleDev], getByFields);
+app.get("/getByfield", [roleUser], getById);
+app.put("/", [roleUser], updateUser);
+app.delete("/", [roleUser], deleteUser);
 
 module.exports = app;

@@ -1,18 +1,7 @@
-module.exports.userRole = function (request, response, callback) {
-  if (request.role !== process.env.ROLE_ONE)
-    return response.status(403).send({
-      request: "failed 2",
-      message: "User not found.",
-      error: "Access denied.",
-      redirect: "/auth/login",
-    });
-  callback();
-};
-
-module.exports.adminRole = function (request, response, callback) {
+module.exports.roleAdmin = function (request, response, callback) {
   if (request.role !== process.env.ROLE_TWO)
     return response.status(403).send({
-      request: "failed",
+      request: "failed admin",
       message: "User not found.",
       error: "Access denied.",
       redirect: "/auth/login",
@@ -20,10 +9,29 @@ module.exports.adminRole = function (request, response, callback) {
   callback();
 };
 
-module.exports.developRole = function (request, response, callback) {
-  if (request.role !== process.env.ROLE_THREE)
+module.exports.roleDev = function (request, response, callback) {
+  if (
+    request.role !== process.env.ROLE_THREE ||
+    request.role !== process.env.ROLE_TWO
+  )
     return response.status(403).send({
-      request: "failed",
+      request: "failed dev",
+      message: "User not found.",
+      error: "Access denied.",
+      redirect: "/auth/login",
+    });
+  callback();
+};
+
+module.exports.roleUser = function (request, response, callback) {
+  console.log(request.role);
+  if (
+    request.role !== process.env.ROLE_ONE ||
+    request.role !== process.env.ROLE_TWO ||
+    request.role !== process.env.ROLE_THREE
+  )
+    return response.status(403).send({
+      request: "failed user ",
       message: "User not found.",
       error: "Access denied.",
       redirect: "/auth/login",
