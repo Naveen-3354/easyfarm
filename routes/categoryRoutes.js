@@ -7,11 +7,11 @@ const {
   deleteCategory,
   updateCategory,
 } = require("../service/categoryService");
-const { admin, developer } = require("../service/productService");
+const { roleDev, roleUser } = require("../middleware/roleAuthorization");
 
-app.get("/", getAllCategory);
-app.post("/", [admin, developer], addCategory);
-app.put("/", [admin, developer], updateCategory);
-app.delete("/", [admin, developer], deleteCategory);
+app.get("/",[roleUser], getAllCategory);
+app.post("/", [roleDev], addCategory);
+app.put("/", [roleDev], updateCategory);
+app.delete("/", [roleDev], deleteCategory);
 
 module.exports = app;

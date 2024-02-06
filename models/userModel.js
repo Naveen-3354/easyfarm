@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken");
 
 const userSchema = new mongoose.Schema(
   {
@@ -47,13 +47,13 @@ const userSchema = new mongoose.Schema(
       //     message:(props)=>`${props.value} should contain at least one uppercase letter, one lowercase letter, one number and one special character.`
       // }
     },
-    proffileImg: {
+    profileImg: {
       type: String,
     },
     status: {
       type: String,
       enum: {
-        values: ["Active", "  "],
+        values: ["Active", "Inactive"],
         message: "{VALUE} is not valid.",
       },
       default: "Active",
@@ -62,13 +62,21 @@ const userSchema = new mongoose.Schema(
       type: Date,
       default: Date.now(),
     },
-    role:{
-        type:String,
-        enum:{
-            values:["USER", "ADMIN", "DEVELOPER"]
-        },
-        default:"USER"
-    }
+    role: {
+      type: String,
+      enum: {
+        values: ["USER", "ADMIN", "DEVELOPER", "SELLER", "MEMBER"],
+      },
+      default: "USER",
+    },
+    emailVerified: {
+      type: Boolean,
+      default: false,
+    },
+    numberVerified: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     versionKey: false,
@@ -78,19 +86,18 @@ const userSchema = new mongoose.Schema(
 userSchema.methods.createUserId = function (count) {
   const currentDate = new Date();
   const minutes = currentDate.getMinutes();
-  return "efus" + minutes*100 + (count+1);
-};  
+  return "efus" + minutes * 100 + (count + 1);
+};
 
 userSchema.methods.generateToken = function () {
   const token = jwt.sign(
-    { userId: this.userId, userName : this.userName, role: this.role},
+    { userId: this.userId, userName: this.userName, role: this.role },
     process.env.JWT_SECRET_KEY,
     { algorithm: "HS256", expiresIn: process.env.JWT_EXP_TIME }
   );
-    return token;
-}
+  return token;
+};
 
 const UserModel = mongoose.model("userDetails", userSchema);
-
 
 module.exports = UserModel;
