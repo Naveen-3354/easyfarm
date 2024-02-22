@@ -22,8 +22,8 @@ exports.addCategory = async (request, response) => {
       request: "failed",
       message: "request is missing an important feilds.",
     });
-
-  const { categoryName, image, createdBy } = request.body;
+  const createdBy = request.userid;
+  const { categoryName, image } = request.body;
 
   let result = await CategoryModel.find({ categoryName }).select({
     categoryName: 1,
@@ -74,20 +74,22 @@ exports.deleteCategory = async (request, response) => {
 };
 
 exports.updateCategory = async (request, response) => {
-  if (_.isEmpty(request.body))
-    return response.status(400).send({
-      request: "failed",
-      message: "request is missing an important feilds.",
-    });
+console.log("scnj");
+   await CategoryModel.updateMany({}, {createdBy: request.userId})
+  // if (_.isEmpty(request.body))
+  //   return response.status(400).send({
+  //     request: "failed",
+  //     message: "request is missing an important feilds.",
+  //   });
 
-  const { categoryName, categoryId } = request.body;
-  const result = await CategoryModel.findOne({
-    categoryId,
-  }).select({ categoryName: 1, _id: 0 });
+  // const { categoryName, categoryId } = request.body;
+  // const result = await CategoryModel.findOne({
+  //   categoryId,
+  // }).select({ categoryName: 1, _id: 0 });
 
-  result.categoryName = categoryName;
+  // result.categoryName = categoryName;
 
-  await result.save();
+  // await result.save();
 
   response.status(201).send({
     request: "successfull",

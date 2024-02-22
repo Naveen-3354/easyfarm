@@ -5,17 +5,18 @@ const categorySchema = new mongoose.Schema({
     type: String,
     required: [true, "Username is a required field."],
     minLength: [4, "Username is less than 4 characters."],
-    maxLength: [15, "Username is greater than 15 characters."],
+    maxLength: [50, "Username is greater than 15 characters."],
   },
   categoryId : {
     type : String,
     // required: [true, "Username is a required field."],
     minLength: [4, "Username is less than 4 characters."],
-    maxLength: [15, "Username is greater than 15 characters."],
+    // maxLength: [15, "Username is greater than 15 characters."],
   },
   createdBy:{
-    type:[String],
+    type: mongoose.Schema.ObjectId,
     required: [true, "Username is a required field."],
+    ref:"userDetails"
   },
   createdOn:{
     type: Date,

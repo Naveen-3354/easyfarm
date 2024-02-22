@@ -10,10 +10,10 @@ const {
 } = require("../service/userService");
 const { roleDev, roleUser } = require("../middleware/roleAuthorization");
 
-app.get("/", [roleDev], getAllUser);
-app.get("/getByFields", [roleDev], getByFields);
-app.get("/getByfield", [roleUser], getById);
-app.put("/", [roleUser], updateUser);
-app.delete("/", [roleUser], deleteUser);
+app.get("/", [], getAllUser);
+app.get("/getByFields", [], getByFields);
+app.get("/getByfield", [], getById);
+app.put("/", [], updateUser);
+app.delete("/", [], deleteUser);
 
 module.exports = app;

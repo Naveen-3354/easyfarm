@@ -16,9 +16,9 @@ const {
   roleMember
 } = require("../middleware/roleAuthorization");
 
-app.get("/getAllOrders", [roleDev], getAllOrders);
-app.get("/getOrderByCustomerId",[roleUser], getOrdersByCustomerId)
-app.get("/getOrderByProductId/:id",[roleSeller], getOrdersByProductId)
-app.get("/getByFields",[roleDev],getOrdersByFields)
-app.get("/getByYear/:date",[roleMember], getOrdersByYear)
+app.get("/getAllOrders", [], getAllOrders);
+app.get("/getOrderByCustomerId",[], getOrdersByCustomerId)
+app.get("/getOrderByProductId/:id",[], getOrdersByProductId)
+app.get("/getByFields",[],getOrdersByFields)
+app.get("/getByYear/:date",[], getOrdersByYear)
 

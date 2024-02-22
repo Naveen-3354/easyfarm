@@ -14,9 +14,9 @@ const {
 } = require("../middleware/roleAuthorization");
 
 app.get("/:status", getActiveProducts);
-app.get("/", [roleDev], getAllproducts);
-app.post("/dev", [roleSeller], createNewProduct);
-app.put("/:id",[roleSeller], updateProduct)
-app.delete("/:id",[roleSeller], deleteProducts)
+app.get("/", [], getAllproducts);
+app.post("/dev", [], createNewProduct);
+app.put("/:id",[], updateProduct)
+app.delete("/:id",[], deleteProducts)
 
 module.exports = app;

@@ -10,8 +10,9 @@ const productsSchema = new mongoose.Schema({
     required: true,
   },
   categoryId: {
-    type: String,
+    type: mongoose.Schema.ObjectId,
     required: true,
+    ref:"categorys"
   },
   categoryName:{
     type:String,
@@ -29,8 +30,9 @@ const productsSchema = new mongoose.Schema({
     default: false
   },
   sellerId:{
-    type:String,
-    required:true
+    type:mongoose.Schema.ObjectId,
+    required:true,
+    ref:"userDetails"
   },
   createdOn:{
     type:Date,

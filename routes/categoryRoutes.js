@@ -9,9 +9,9 @@ const {
 } = require("../service/categoryService");
 const { roleDev, roleUser } = require("../middleware/roleAuthorization");
 
-app.get("/",[roleUser], getAllCategory);
-app.post("/", [roleDev], addCategory);
-app.put("/", [roleDev], updateCategory);
-app.delete("/", [roleDev], deleteCategory);
+app.get("/",[], getAllCategory);
+app.post("/", [], addCategory);
+app.put("/", [], updateCategory);
+app.delete("/", [], deleteCategory);
 
 module.exports = app;

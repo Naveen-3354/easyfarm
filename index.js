@@ -9,6 +9,7 @@ require("./database/mongoose")
 const authentication = require("./routes/authRoutes")
 const products = require("./routes/porductsRoutes")
 const users = require("./routes/userRoutes")
+const category = require("./routes/categoryRoutes")
 
 const requestValidation = require("./middleware/requestValidation")
 
@@ -27,5 +28,6 @@ server.use(cookieParser(cookieSerect))
 server.use("/auth", authentication)
 server.use("/products", requestValidation, products)
 server.use("/users",requestValidation, users)
+server.use("/categorys",requestValidation, category)
 
 server.listen(port, ()=>console.log("Listening on port "+port))

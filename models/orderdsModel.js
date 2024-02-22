@@ -15,12 +15,14 @@ const ordersSchema = new mongoose.Schema({
     required:true
   },
   productId: {
-    type: String,
+    type: mongoose.Schema.ObjectId,
     required: true,
+    ref:"products"
   },
   customerId: {
-    type: String,
+    type: mongoose.Schema.ObjectId,
     required: true,
+    ref:"userDetails"
   },
   customerAddress: {
     type: String,
